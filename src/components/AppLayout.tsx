@@ -5,9 +5,9 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Role } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import {
-  LayoutDashboard, Users, BookOpen, Star, FileText, Bell, Image, Blocks,
+  LayoutDashboard, Users, BookOpen, Bell, Image, Blocks,
   MessageSquare, Settings, LogOut, Menu, X, GraduationCap, User,
-  ClipboardList, UserCheck, ChevronRight, School
+  ChevronRight, School, Bot, Eye
 } from 'lucide-react';
 
 interface NavItem {
@@ -21,37 +21,29 @@ const navItems: Record<Role, NavItem[]> = {
     { label: 'داشبورد', href: '/admin', icon: LayoutDashboard },
     { label: 'دانش‌آموزان', href: '/admin/students', icon: GraduationCap },
     { label: 'حساب‌های کاربری', href: '/admin/accounts', icon: Users },
-    { label: 'معلمان', href: '/admin/teachers', icon: UserCheck },
-    { label: 'معاونان', href: '/admin/assistants', icon: User },
-    { label: 'تکالیف', href: '/admin/homework', icon: BookOpen },
-    { label: 'کارنامه‌ها', href: '/admin/report-cards', icon: FileText },
-    { label: 'اطلاعیه‌ها', href: '/admin/announcements', icon: Bell },
     { label: 'اسلایدر', href: '/admin/slider', icon: Image },
-    { label: 'بلوک‌های سفارشی', href: '/admin/custom-blocks', icon: Blocks },
+    { label: 'صفحات سفارشی', href: '/admin/custom-pages', icon: Blocks },
+    { label: 'اطلاعیه‌ها', href: '/admin/announcements', icon: Bell },
+    { label: 'پیام‌های AI', href: '/admin/ai-messages', icon: Eye },
     { label: 'چت', href: '/admin/chat', icon: MessageSquare },
     { label: 'تنظیمات', href: '/admin/settings', icon: Settings },
   ],
   assistant: [
     { label: 'داشبورد', href: '/assistant', icon: LayoutDashboard },
     { label: 'دانش‌آموزان', href: '/assistant/students', icon: GraduationCap },
-    { label: 'تکالیف', href: '/assistant/homework', icon: BookOpen },
-    { label: 'کارنامه‌ها', href: '/assistant/report-cards', icon: FileText },
     { label: 'چت', href: '/assistant/chat', icon: MessageSquare },
     { label: 'حساب کاربری', href: '/assistant/profile', icon: User },
   ],
   teacher: [
     { label: 'داشبورد', href: '/teacher', icon: LayoutDashboard },
-    { label: 'تکالیف', href: '/teacher/homework', icon: BookOpen },
-    { label: 'نمرات', href: '/teacher/grades', icon: Star },
     { label: 'چت', href: '/teacher/chat', icon: MessageSquare },
     { label: 'حساب کاربری', href: '/teacher/profile', icon: User },
   ],
   student: [
     { label: 'خانه', href: '/student', icon: LayoutDashboard },
-    { label: 'تکالیف', href: '/student/homework', icon: BookOpen },
-    { label: 'نمرات و کارنامه', href: '/student/grades', icon: Star },
     { label: 'اطلاعیه‌ها', href: '/student/announcements', icon: Bell },
     { label: 'چت', href: '/student/chat', icon: MessageSquare },
+    { label: 'هوش مصنوعی', href: '/student/ai', icon: Bot },
     { label: 'حساب کاربری', href: '/student/profile', icon: User },
   ],
 };
@@ -154,9 +146,6 @@ interface AppLayoutProps {
 const AppLayout = ({ children, role }: AppLayoutProps) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-
-  // Close sidebar on route change (mobile)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex h-screen bg-background overflow-hidden">
